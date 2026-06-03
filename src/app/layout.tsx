@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "4sightRX Admin",
-  description: "Admin dashboard for 4sightRX",
+  title: "Govia - Admin Dashboard",
+  description: "Admin dashboard for Govia",
 };
 
 export default function RootLayout({

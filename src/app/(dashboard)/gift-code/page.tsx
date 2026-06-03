@@ -29,6 +29,24 @@ const mockData: GiftCode[] = [
   { id: "3", codeId: "GIFT-I9J0-K1L2", organization: "Mental Health Assoc", status: "Active", expDate: "2027-01-30" },
   { id: "4", codeId: "GIFT-M3N4-O5P6", organization: "State Troopers", status: "Expired", expDate: "2025-12-31" },
   { id: "5", codeId: "GIFT-Q7R8-S9T0", organization: "City Police Dept", status: "Active", expDate: "2026-12-31" },
+
+  { id: "6", codeId: "GIFT-A1B2-C3D4", organization: "City Police Dept", status: "Active", expDate: "2026-12-31" },
+  { id: "7", codeId: "GIFT-E5F6-G7H8", organization: "County Court", status: "Redeemed", expDate: "2026-05-15" },
+  { id: "8", codeId: "GIFT-I9J0-K1L2", organization: "Mental Health Assoc", status: "Active", expDate: "2027-01-30" },
+  { id: "9", codeId: "GIFT-M3N4-O5P6", organization: "State Troopers", status: "Expired", expDate: "2025-12-31" },
+  { id: "10", codeId: "GIFT-Q7R8-S9T0", organization: "City Police Dept", status: "Active", expDate: "2026-12-31" },
+
+  { id: "11", codeId: "GIFT-A1B2-C3D4", organization: "City Police Dept", status: "Active", expDate: "2026-12-31" },
+  { id: "12", codeId: "GIFT-E5F6-G7H8", organization: "County Court", status: "Redeemed", expDate: "2026-05-15" },
+  { id: "13", codeId: "GIFT-I9J0-K1L2", organization: "Mental Health Assoc", status: "Active", expDate: "2027-01-30" },
+  { id: "14", codeId: "GIFT-M3N4-O5P6", organization: "State Troopers", status: "Expired", expDate: "2025-12-31" },
+  { id: "15", codeId: "GIFT-Q7R8-S9T0", organization: "City Police Dept", status: "Active", expDate: "2026-12-31" },
+
+  { id: "16", codeId: "GIFT-A1B2-C3D4", organization: "City Police Dept", status: "Active", expDate: "2026-12-31" },
+  { id: "17", codeId: "GIFT-E5F6-G7H8", organization: "County Court", status: "Redeemed", expDate: "2026-05-15" },
+  { id: "18", codeId: "GIFT-I9J0-K1L2", organization: "Mental Health Assoc", status: "Active", expDate: "2027-01-30" },
+  { id: "19", codeId: "GIFT-M3N4-O5P6", organization: "State Troopers", status: "Expired", expDate: "2025-12-31" },
+  { id: "20", codeId: "GIFT-Q7R8-S9T0", organization: "City Police Dept", status: "Active", expDate: "2026-12-31" },
 ];
 
 export default function GiftCodeManagementPage() {
@@ -112,10 +130,10 @@ export default function GiftCodeManagementPage() {
 
         <DataTable
           columns={columns}
-          data={mockData.slice((currentPage - 1) * 5, currentPage * 5)}
+          data={mockData.slice((currentPage - 1) * 10, currentPage * 10)}
           pagination={{
             currentPage,
-            totalPages: Math.ceil(mockData.length / 5),
+            totalPages: Math.ceil(mockData.length / 10),
             onPageChange: setCurrentPage,
           }}
         />

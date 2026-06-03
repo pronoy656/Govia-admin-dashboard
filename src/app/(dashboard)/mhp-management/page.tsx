@@ -29,6 +29,24 @@ const mockData: MHP[] = [
   { id: "3", name: "Dr. Ellie Sattler", email: "e.sattler@mhp.org", hipaaId: "H-44912", liveStatus: "Active" },
   { id: "4", name: "Dr. Ian Malcolm", email: "i.malcolm@mhp.org", hipaaId: "H-33211", liveStatus: "Active" },
   { id: "5", name: "Dr. John Hammond", email: "j.hammond@mhp.org", hipaaId: "H-99100", liveStatus: "Inactive" },
+
+  { id: "6", name: "Dr. Sarah Jenkins", email: "s.jenkins@mhp.org", hipaaId: "H-88219", liveStatus: "Active" },
+  { id: "7", name: "Dr. Alan Grant", email: "a.grant@mhp.org", hipaaId: "H-12490", liveStatus: "Inactive" },
+  { id: "8", name: "Dr. Ellie Sattler", email: "e.sattler@mhp.org", hipaaId: "H-44912", liveStatus: "Active" },
+  { id: "9", name: "Dr. Ian Malcolm", email: "i.malcolm@mhp.org", hipaaId: "H-33211", liveStatus: "Active" },
+  { id: "10", name: "Dr. John Hammond", email: "j.hammond@mhp.org", hipaaId: "H-99100", liveStatus: "Inactive" },
+
+  { id: "11", name: "Dr. Sarah Jenkins", email: "s.jenkins@mhp.org", hipaaId: "H-88219", liveStatus: "Active" },
+  { id: "12", name: "Dr. Alan Grant", email: "a.grant@mhp.org", hipaaId: "H-12490", liveStatus: "Inactive" },
+  { id: "13", name: "Dr. Ellie Sattler", email: "e.sattler@mhp.org", hipaaId: "H-44912", liveStatus: "Active" },
+  { id: "14", name: "Dr. Ian Malcolm", email: "i.malcolm@mhp.org", hipaaId: "H-33211", liveStatus: "Active" },
+  { id: "15", name: "Dr. John Hammond", email: "j.hammond@mhp.org", hipaaId: "H-99100", liveStatus: "Inactive" },
+
+  { id: "16", name: "Dr. Sarah Jenkins", email: "s.jenkins@mhp.org", hipaaId: "H-88219", liveStatus: "Active" },
+  { id: "17", name: "Dr. Alan Grant", email: "a.grant@mhp.org", hipaaId: "H-12490", liveStatus: "Inactive" },
+  { id: "18", name: "Dr. Ellie Sattler", email: "e.sattler@mhp.org", hipaaId: "H-44912", liveStatus: "Active" },
+  { id: "19", name: "Dr. Ian Malcolm", email: "i.malcolm@mhp.org", hipaaId: "H-33211", liveStatus: "Active" },
+  { id: "20", name: "Dr. John Hammond", email: "j.hammond@mhp.org", hipaaId: "H-99100", liveStatus: "Inactive" },
 ];
 
 export default function MHPManagementPage() {
@@ -108,10 +126,10 @@ export default function MHPManagementPage() {
 
         <DataTable
           columns={columns}
-          data={mockData.slice((currentPage - 1) * 5, currentPage * 5)}
+          data={mockData.slice((currentPage - 1) * 10, currentPage * 10)}
           pagination={{
             currentPage,
-            totalPages: Math.ceil(mockData.length / 5),
+            totalPages: Math.ceil(mockData.length / 10),
             onPageChange: setCurrentPage,
           }}
         />

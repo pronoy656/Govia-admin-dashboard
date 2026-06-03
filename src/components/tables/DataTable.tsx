@@ -31,10 +31,10 @@ interface DataTableProps<T> {
 export function DataTable<T>({ columns, data, pagination }: DataTableProps<T>) {
   return (
     <div className="w-full flex flex-col gap-4">
-      <div className="w-full overflow-hidden rounded-xl border border-slate-100 bg-white">
-        <Table>
-          <TableHeader className="bg-[#f4f9f9]">
-            <TableRow className="border-b-0 hover:bg-transparent">
+      <div className="w-full overflow-x-auto">
+        <Table className="border-separate border-spacing-y-2">
+          <TableHeader>
+            <TableRow className="border-none hover:bg-transparent">
               {columns.map((col, i) => (
                 <TableHead
                   key={i}
@@ -46,34 +46,35 @@ export function DataTable<T>({ columns, data, pagination }: DataTableProps<T>) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {data.map((row, rowIndex) => (
-              <TableRow
-                key={rowIndex}
-                className={`border-b-0 hover:bg-slate-50 transition-colors ${
-                  rowIndex % 2 === 0 ? "bg-white" : "bg-slate-50/40"
-                }`}
-              >
-                {columns.map((col, colIndex) => (
-                  <TableCell
-                    key={colIndex}
-                    className={`py-4 px-6 text-slate-600 font-medium ${
-                      col.className || ""
-                    }`}
-                  >
-                    {col.cell
-                      ? col.cell(row)
-                      : col.accessorKey
-                      ? String(row[col.accessorKey])
-                      : null}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))}
+            {data.map((row, rowIndex) => {
+              const rowBg = rowIndex % 2 === 0 ? "bg-white" : "bg-[#F1F6F5]";
+              return (
+                <TableRow
+                  key={rowIndex}
+                  className="border-none hover:opacity-90 transition-opacity group"
+                >
+                  {columns.map((col, colIndex) => (
+                    <TableCell
+                      key={colIndex}
+                      className={`py-4 px-6 text-slate-600 font-medium ${rowBg} ${colIndex === 0 ? "rounded-l-xl" : ""
+                        } ${colIndex === columns.length - 1 ? "rounded-r-xl" : ""
+                        } ${col.className || ""}`}
+                    >
+                      {col.cell
+                        ? col.cell(row)
+                        : col.accessorKey
+                          ? String(row[col.accessorKey])
+                          : null}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              );
+            })}
             {data.length === 0 && (
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24 text-center text-slate-500"
+                  className="h-24 text-center text-slate-500 bg-white rounded-xl"
                 >
                   No results.
                 </TableCell>
@@ -86,7 +87,7 @@ export function DataTable<T>({ columns, data, pagination }: DataTableProps<T>) {
       {pagination && (
         <div className="grid grid-cols-3 items-center pt-4 pb-2">
           <p className="text-sm text-[#1554ad] font-medium justify-self-start">
-            Showing 1 To 5 Page
+            Showing 1 To 10 Page
           </p>
           <div className="flex items-center justify-center gap-2">
             <button
@@ -106,11 +107,10 @@ export function DataTable<T>({ columns, data, pagination }: DataTableProps<T>) {
                   <button
                     key={page}
                     onClick={() => pagination.onPageChange(page)}
-                    className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-medium transition-all ${
-                      isActive
-                        ? "bg-[#1554ad] text-white shadow-md shadow-[#1554ad]/20"
-                        : "text-slate-600 bg-slate-100 hover:bg-slate-200"
-                    }`}
+                    className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-medium transition-all ${isActive
+                      ? "bg-[#1554ad] text-white shadow-md shadow-[#1554ad]/20"
+                      : "text-slate-600 bg-slate-100 hover:bg-slate-200"
+                      }`}
                   >
                     {page}
                   </button>

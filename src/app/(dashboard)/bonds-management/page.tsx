@@ -29,6 +29,24 @@ const mockData: Bondsman[] = [
   { id: "3", name: "Kim Wexler", agencyName: "Wexler Bonds", licenseId: "L-33290", activeRequest: "1", totalReleases: "45" },
   { id: "4", name: "Howard Hamlin", agencyName: "Hamlin Bail Co", licenseId: "L-11002", activeRequest: "0", totalReleases: "230" },
   { id: "5", name: "Chuck McGill", agencyName: "McGill Surety", licenseId: "L-88221", activeRequest: "5", totalReleases: "120" },
+
+  { id: "6", name: "Mike Ehrmantraut", agencyName: "Quick Bail Bonds", licenseId: "L-99821", activeRequest: "3", totalReleases: "145" },
+  { id: "7", name: "Saul Goodman", agencyName: "Better Call Saul Bonds", licenseId: "L-44211", activeRequest: "12", totalReleases: "890" },
+  { id: "8", name: "Kim Wexler", agencyName: "Wexler Bonds", licenseId: "L-33290", activeRequest: "1", totalReleases: "45" },
+  { id: "9", name: "Howard Hamlin", agencyName: "Hamlin Bail Co", licenseId: "L-11002", activeRequest: "0", totalReleases: "230" },
+  { id: "10", name: "Chuck McGill", agencyName: "McGill Surety", licenseId: "L-88221", activeRequest: "5", totalReleases: "120" },
+
+  { id: "11", name: "Mike Ehrmantraut", agencyName: "Quick Bail Bonds", licenseId: "L-99821", activeRequest: "3", totalReleases: "145" },
+  { id: "12", name: "Saul Goodman", agencyName: "Better Call Saul Bonds", licenseId: "L-44211", activeRequest: "12", totalReleases: "890" },
+  { id: "13", name: "Kim Wexler", agencyName: "Wexler Bonds", licenseId: "L-33290", activeRequest: "1", totalReleases: "45" },
+  { id: "14", name: "Howard Hamlin", agencyName: "Hamlin Bail Co", licenseId: "L-11002", activeRequest: "0", totalReleases: "230" },
+  { id: "15", name: "Chuck McGill", agencyName: "McGill Surety", licenseId: "L-88221", activeRequest: "5", totalReleases: "120" },
+
+  { id: "16", name: "Mike Ehrmantraut", agencyName: "Quick Bail Bonds", licenseId: "L-99821", activeRequest: "3", totalReleases: "145" },
+  { id: "17", name: "Saul Goodman", agencyName: "Better Call Saul Bonds", licenseId: "L-44211", activeRequest: "12", totalReleases: "890" },
+  { id: "18", name: "Kim Wexler", agencyName: "Wexler Bonds", licenseId: "L-33290", activeRequest: "1", totalReleases: "45" },
+  { id: "19", name: "Howard Hamlin", agencyName: "Hamlin Bail Co", licenseId: "L-11002", activeRequest: "0", totalReleases: "230" },
+  { id: "20", name: "Chuck McGill", agencyName: "McGill Surety", licenseId: "L-88221", activeRequest: "5", totalReleases: "120" },
 ];
 
 export default function BailBondsmanManagementPage() {
@@ -104,10 +122,10 @@ export default function BailBondsmanManagementPage() {
 
         <DataTable
           columns={columns}
-          data={mockData.slice((currentPage - 1) * 5, currentPage * 5)}
+          data={mockData.slice((currentPage - 1) * 10, currentPage * 10)}
           pagination={{
             currentPage,
-            totalPages: Math.ceil(mockData.length / 5),
+            totalPages: Math.ceil(mockData.length / 10),
             onPageChange: setCurrentPage,
           }}
         />

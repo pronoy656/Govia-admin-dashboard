@@ -30,6 +30,24 @@ const mockData: PoliceOfficer[] = [
   { id: "3", name: "Officer Mike Ross", email: "m.ross@police.dept", badgeNumber: "B-1102", encounters: "45", rating: "4.5/5.0" },
   { id: "4", name: "Officer Sarah Connor", email: "s.connor@police.dept", badgeNumber: "B-9980", encounters: "210", rating: "4.7/5.0" },
   { id: "5", name: "Officer David Clark", email: "d.clark@police.dept", badgeNumber: "B-3341", encounters: "15", rating: "4.2/5.0" },
+
+  { id: "6", name: "Officer John Doe", email: "j.doe@police.dept", badgeNumber: "B-1045", encounters: "124", rating: "4.8/5.0" },
+  { id: "7", name: "Officer Jane Smith", email: "j.smith@police.dept", badgeNumber: "B-2033", encounters: "98", rating: "4.9/5.0" },
+  { id: "8", name: "Officer Mike Ross", email: "m.ross@police.dept", badgeNumber: "B-1102", encounters: "45", rating: "4.5/5.0" },
+  { id: "9", name: "Officer Sarah Connor", email: "s.connor@police.dept", badgeNumber: "B-9980", encounters: "210", rating: "4.7/5.0" },
+  { id: "10", name: "Officer David Clark", email: "d.clark@police.dept", badgeNumber: "B-3341", encounters: "15", rating: "4.2/5.0" },
+
+  { id: "11", name: "Officer John Doe", email: "j.doe@police.dept", badgeNumber: "B-1045", encounters: "124", rating: "4.8/5.0" },
+  { id: "12", name: "Officer Jane Smith", email: "j.smith@police.dept", badgeNumber: "B-2033", encounters: "98", rating: "4.9/5.0" },
+  { id: "13", name: "Officer Mike Ross", email: "m.ross@police.dept", badgeNumber: "B-1102", encounters: "45", rating: "4.5/5.0" },
+  { id: "14", name: "Officer Sarah Connor", email: "s.connor@police.dept", badgeNumber: "B-9980", encounters: "210", rating: "4.7/5.0" },
+  { id: "15", name: "Officer David Clark", email: "d.clark@police.dept", badgeNumber: "B-3341", encounters: "15", rating: "4.2/5.0" },
+
+  { id: "16", name: "Officer John Doe", email: "j.doe@police.dept", badgeNumber: "B-1045", encounters: "124", rating: "4.8/5.0" },
+  { id: "17", name: "Officer Jane Smith", email: "j.smith@police.dept", badgeNumber: "B-2033", encounters: "98", rating: "4.9/5.0" },
+  { id: "18", name: "Officer Mike Ross", email: "m.ross@police.dept", badgeNumber: "B-1102", encounters: "45", rating: "4.5/5.0" },
+  { id: "19", name: "Officer Sarah Connor", email: "s.connor@police.dept", badgeNumber: "B-9980", encounters: "210", rating: "4.7/5.0" },
+  { id: "20", name: "Officer David Clark", email: "d.clark@police.dept", badgeNumber: "B-3341", encounters: "15", rating: "4.2/5.0" },
 ];
 
 export default function PoliceManagementPage() {
@@ -112,10 +130,10 @@ export default function PoliceManagementPage() {
 
         <DataTable
           columns={columns}
-          data={mockData.slice((currentPage - 1) * 5, currentPage * 5)}
+          data={mockData.slice((currentPage - 1) * 10, currentPage * 10)}
           pagination={{
             currentPage,
-            totalPages: Math.ceil(mockData.length / 5),
+            totalPages: Math.ceil(mockData.length / 10),
             onPageChange: setCurrentPage,
           }}
         />

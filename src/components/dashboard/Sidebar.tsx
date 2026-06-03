@@ -61,16 +61,15 @@ export default function Sidebar({ active }: { active?: string }) {
   return (
     <aside className="h-screen w-64 bg-white text-slate-600 border-r border-slate-200 fixed left-0 top-0 flex flex-col">
       <div className="p-6 pb-2">
-        <div className="flex items-center gap-3 w-full min-h-[60px]">
+        <div className="flex items-center justify-center w-full min-h-[60px]">
           <Image
             src="/image 1 (1).png"
             alt="Logo"
-            width={40}
-            height={40}
-            className="w-auto h-8 object-contain"
+            width={80}
+            height={80}
+            className="w-auto h-28 object-contain"
             priority
           />
-
         </div>
       </div>
 
@@ -86,10 +85,10 @@ export default function Sidebar({ active }: { active?: string }) {
                   "flex items-center gap-3 px-4 py-3 text-sm transition-colors rounded-lg",
                   isActive
                     ? "bg-[#1554ad] text-white font-medium"
-                    : "text-slate-500 hover:bg-slate-50 hover:text-slate-700"
+                    : "text-slate-800 font-semibold hover:bg-slate-50 hover:text-slate-700"
                 )}
               >
-                <item.Icon className={cn("h-5 w-5", isActive ? "text-white" : "text-slate-400")} />
+                <item.Icon className={cn("h-5 w-5", isActive ? "text-white" : "text-slate-800")} />
                 <span>{item.label}</span>
               </Link>
             );

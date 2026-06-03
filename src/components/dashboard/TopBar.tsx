@@ -14,7 +14,7 @@ export default function TopBar() {
   return (
     <div className="flex items-center justify-between px-8 py-4 border-b border-slate-100 bg-white sticky top-0 z-10 h-16">
       <div className="text-slate-400 text-sm font-medium">
-        Admin Portal
+        Govia Admin Portal
       </div>
 
       <div className="flex items-center gap-4">

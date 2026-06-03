@@ -30,6 +30,24 @@ const mockData: Attorney[] = [
   { id: "3", name: "Attorney James Bond", email: "jbond@lawfirm.com", location: "London, UK", barId: "UK-007", zoomSession: "Pending" },
   { id: "4", name: "Attorney Emily Blunt", email: "eblunt@lawfirm.com", location: "Chicago, IL", barId: "IL-2234", zoomSession: "Scheduled" },
   { id: "5", name: "Attorney Tom Hardy", email: "thardy@lawfirm.com", location: "Miami, FL", barId: "FL-1122", zoomSession: "Scheduled" },
+
+  { id: "6", name: "Attorney Robert Vance", email: "rvance@lawfirm.com", location: "New York, NY", barId: "NY-44021", zoomSession: "Scheduled" },
+  { id: "7", name: "Attorney Lisa Ray", email: "lray@lawfirm.com", location: "Los Angeles, CA", barId: "CA-99382", zoomSession: "Completed" },
+  { id: "8", name: "Attorney James Bond", email: "jbond@lawfirm.com", location: "London, UK", barId: "UK-007", zoomSession: "Pending" },
+  { id: "9", name: "Attorney Emily Blunt", email: "eblunt@lawfirm.com", location: "Chicago, IL", barId: "IL-2234", zoomSession: "Scheduled" },
+  { id: "10", name: "Attorney Tom Hardy", email: "thardy@lawfirm.com", location: "Miami, FL", barId: "FL-1122", zoomSession: "Scheduled" },
+
+  { id: "11", name: "Attorney Robert Vance", email: "rvance@lawfirm.com", location: "New York, NY", barId: "NY-44021", zoomSession: "Scheduled" },
+  { id: "12", name: "Attorney Lisa Ray", email: "lray@lawfirm.com", location: "Los Angeles, CA", barId: "CA-99382", zoomSession: "Completed" },
+  { id: "13", name: "Attorney James Bond", email: "jbond@lawfirm.com", location: "London, UK", barId: "UK-007", zoomSession: "Pending" },
+  { id: "14", name: "Attorney Emily Blunt", email: "eblunt@lawfirm.com", location: "Chicago, IL", barId: "IL-2234", zoomSession: "Scheduled" },
+  { id: "15", name: "Attorney Tom Hardy", email: "thardy@lawfirm.com", location: "Miami, FL", barId: "FL-1122", zoomSession: "Scheduled" },
+
+  { id: "16", name: "Attorney Robert Vance", email: "rvance@lawfirm.com", location: "New York, NY", barId: "NY-44021", zoomSession: "Scheduled" },
+  { id: "17", name: "Attorney Lisa Ray", email: "lray@lawfirm.com", location: "Los Angeles, CA", barId: "CA-99382", zoomSession: "Completed" },
+  { id: "18", name: "Attorney James Bond", email: "jbond@lawfirm.com", location: "London, UK", barId: "UK-007", zoomSession: "Pending" },
+  { id: "19", name: "Attorney Emily Blunt", email: "eblunt@lawfirm.com", location: "Chicago, IL", barId: "IL-2234", zoomSession: "Scheduled" },
+  { id: "20", name: "Attorney Tom Hardy", email: "thardy@lawfirm.com", location: "Miami, FL", barId: "FL-1122", zoomSession: "Scheduled" },
 ];
 
 export default function AttorneyManagementPage() {
@@ -115,10 +133,10 @@ export default function AttorneyManagementPage() {
 
         <DataTable
           columns={columns}
-          data={mockData.slice((currentPage - 1) * 5, currentPage * 5)}
+          data={mockData.slice((currentPage - 1) * 10, currentPage * 10)}
           pagination={{
             currentPage,
-            totalPages: Math.ceil(mockData.length / 5),
+            totalPages: Math.ceil(mockData.length / 10),
             onPageChange: setCurrentPage,
           }}
         />

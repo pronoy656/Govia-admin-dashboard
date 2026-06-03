@@ -29,6 +29,24 @@ const mockData: CallHistory[] = [
   { id: "3", incidentId: "INC-20260602-C2", citizen: "Emma Watson", officer: "Mike Ross", attorney: "-", mhp: "Dr. Alan Grant", time: "01:15 PM" },
   { id: "4", incidentId: "INC-20260602-D9", citizen: "Liam Neeson", officer: "Sarah Connor", attorney: "James Bond", mhp: "Dr. Ellie Sattler", time: "03:30 PM" },
   { id: "5", incidentId: "INC-20260603-E5", citizen: "Olivia Pope", officer: "David Clark", attorney: "Emily Blunt", mhp: "-", time: "09:00 AM" },
+
+  { id: "6", incidentId: "INC-20260601-A1", citizen: "Sarah Chen", officer: "John Doe", attorney: "Robert Vance", mhp: "Dr. Sarah Jenkins", time: "10:23 AM" },
+  { id: "7", incidentId: "INC-20260601-B4", citizen: "Michael Smith", officer: "Jane Smith", attorney: "Lisa Ray", mhp: "-", time: "11:45 AM" },
+  { id: "8", incidentId: "INC-20260602-C2", citizen: "Emma Watson", officer: "Mike Ross", attorney: "-", mhp: "Dr. Alan Grant", time: "01:15 PM" },
+  { id: "9", incidentId: "INC-20260602-D9", citizen: "Liam Neeson", officer: "Sarah Connor", attorney: "James Bond", mhp: "Dr. Ellie Sattler", time: "03:30 PM" },
+  { id: "10", incidentId: "INC-20260603-E5", citizen: "Olivia Pope", officer: "David Clark", attorney: "Emily Blunt", mhp: "-", time: "09:00 AM" },
+
+  { id: "11", incidentId: "INC-20260601-A1", citizen: "Sarah Chen", officer: "John Doe", attorney: "Robert Vance", mhp: "Dr. Sarah Jenkins", time: "10:23 AM" },
+  { id: "12", incidentId: "INC-20260601-B4", citizen: "Michael Smith", officer: "Jane Smith", attorney: "Lisa Ray", mhp: "-", time: "11:45 AM" },
+  { id: "13", incidentId: "INC-20260602-C2", citizen: "Emma Watson", officer: "Mike Ross", attorney: "-", mhp: "Dr. Alan Grant", time: "01:15 PM" },
+  { id: "14", incidentId: "INC-20260602-D9", citizen: "Liam Neeson", officer: "Sarah Connor", attorney: "James Bond", mhp: "Dr. Ellie Sattler", time: "03:30 PM" },
+  { id: "15", incidentId: "INC-20260603-E5", citizen: "Olivia Pope", officer: "David Clark", attorney: "Emily Blunt", mhp: "-", time: "09:00 AM" },
+
+  { id: "16", incidentId: "INC-20260601-A1", citizen: "Sarah Chen", officer: "John Doe", attorney: "Robert Vance", mhp: "Dr. Sarah Jenkins", time: "10:23 AM" },
+  { id: "17", incidentId: "INC-20260601-B4", citizen: "Michael Smith", officer: "Jane Smith", attorney: "Lisa Ray", mhp: "-", time: "11:45 AM" },
+  { id: "18", incidentId: "INC-20260602-C2", citizen: "Emma Watson", officer: "Mike Ross", attorney: "-", mhp: "Dr. Alan Grant", time: "01:15 PM" },
+  { id: "19", incidentId: "INC-20260602-D9", citizen: "Liam Neeson", officer: "Sarah Connor", attorney: "James Bond", mhp: "Dr. Ellie Sattler", time: "03:30 PM" },
+  { id: "20", incidentId: "INC-20260603-E5", citizen: "Olivia Pope", officer: "David Clark", attorney: "Emily Blunt", mhp: "-", time: "09:00 AM" },
 ];
 
 export default function CallHistoryPage() {
@@ -108,10 +126,10 @@ export default function CallHistoryPage() {
 
         <DataTable
           columns={columns}
-          data={mockData.slice((currentPage - 1) * 5, currentPage * 5)}
+          data={mockData.slice((currentPage - 1) * 10, currentPage * 10)}
           pagination={{
             currentPage,
-            totalPages: Math.ceil(mockData.length / 5),
+            totalPages: Math.ceil(mockData.length / 10),
             onPageChange: setCurrentPage,
           }}
         />

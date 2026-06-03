@@ -33,6 +33,33 @@ const mockData: Citizen[] = [
   { id: "6", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Premium Plan", incidents: "05", status: "Online" },
   { id: "7", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Free Tier", incidents: "05", status: "Online" },
   { id: "8", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Basic Plan", incidents: "05", status: "Online" },
+
+  { id: "9", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Basic Plan", incidents: "05", status: "Online" },
+  { id: "10", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Basic Plan", incidents: "05", status: "Online" },
+  { id: "11", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Premium Plan", incidents: "05", status: "Online" },
+  { id: "12", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Basic Plan", incidents: "05", status: "Online" },
+  { id: "13", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Free Tier", incidents: "05", status: "Online" },
+  { id: "14", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Premium Plan", incidents: "05", status: "Online" },
+  { id: "15", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Free Tier", incidents: "05", status: "Online" },
+  { id: "16", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Basic Plan", incidents: "05", status: "Online" },
+
+  { id: "17", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Basic Plan", incidents: "05", status: "Online" },
+  { id: "18", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Basic Plan", incidents: "05", status: "Online" },
+  { id: "19", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Premium Plan", incidents: "05", status: "Online" },
+  { id: "20", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Basic Plan", incidents: "05", status: "Online" },
+  { id: "21", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Free Tier", incidents: "05", status: "Online" },
+  { id: "22", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Premium Plan", incidents: "05", status: "Online" },
+  { id: "23", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Free Tier", incidents: "05", status: "Online" },
+  { id: "24", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Basic Plan", incidents: "05", status: "Online" },
+
+  { id: "25", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Basic Plan", incidents: "05", status: "Online" },
+  { id: "26", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Basic Plan", incidents: "05", status: "Online" },
+  { id: "27", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Premium Plan", incidents: "05", status: "Online" },
+  { id: "28", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Basic Plan", incidents: "05", status: "Online" },
+  { id: "29", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Free Tier", incidents: "05", status: "Online" },
+  { id: "30", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Premium Plan", incidents: "05", status: "Online" },
+  { id: "31", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Free Tier", incidents: "05", status: "Online" },
+  { id: "32", name: "Sarah Chen", email: "M.Sterling@Anexus.lo", subscription: "Basic Plan", incidents: "05", status: "Online" },
 ];
 
 export default function CitizenManagementPage() {
@@ -123,10 +150,10 @@ export default function CitizenManagementPage() {
 
         <DataTable
           columns={columns}
-          data={mockData.slice((currentPage - 1) * 5, currentPage * 5)}
+          data={mockData.slice((currentPage - 1) * 10, currentPage * 10)}
           pagination={{
             currentPage,
-            totalPages: Math.ceil(mockData.length / 5),
+            totalPages: Math.ceil(mockData.length / 10),
             onPageChange: setCurrentPage,
           }}
         />
