@@ -38,22 +38,22 @@ const items: Array<{
   label: string;
   Icon: IconType;
 }> = [
-  { href: "/overview", label: "Overview", Icon: LayoutDashboard },
-  { href: "/citizen-management", label: "Citizen Management", Icon: Users },
-  { href: "/police-management", label: "Police Management", Icon: Shield },
-  { href: "/attorney-management", label: "Attorney Management", Icon: Scale },
-  { href: "/mhp-management", label: "MHP Management", Icon: HeartPulse },
-  { href: "/bonds-management", label: "Bonds Management", Icon: FileText },
-  { href: "/live-call-monitoring", label: "Live Call Monitoring", Icon: Activity },
-  { href: "/call-history", label: "Call History", Icon: History },
-  { href: "/hero-highlight", label: "Hero highlight", Icon: Star },
-  { href: "/risk-map", label: "Risk Map", Icon: Map },
-  { href: "/gift-code", label: "Gift Code", Icon: Gift },
-  { href: "/subscription", label: "Subscription", Icon: CreditCard },
-  { href: "/subpoena", label: "Subpoena", Icon: FileSignature },
-  { href: "/profile", label: "Profile", Icon: User },
-  { href: "/notification", label: "Notification", Icon: Bell },
-];
+    { href: "/overview", label: "Overview", Icon: LayoutDashboard },
+    { href: "/citizen-management", label: "Citizen Management", Icon: Users },
+    { href: "/police-management", label: "Police Management", Icon: Shield },
+    { href: "/attorney-management", label: "Attorney Management", Icon: Scale },
+    { href: "/mhp-management", label: "MHP Management", Icon: HeartPulse },
+    { href: "/bonds-management", label: "Bonds Management", Icon: FileText },
+    { href: "/live-call-monitoring", label: "Live Call Monitoring", Icon: Activity },
+    { href: "/call-history", label: "Call History", Icon: History },
+    { href: "/hero-highlight", label: "Hero highlight", Icon: Star },
+    { href: "/risk-map", label: "Risk Map", Icon: Map },
+    { href: "/gift-code", label: "Gift Code", Icon: Gift },
+    { href: "/subscription", label: "Subscription", Icon: CreditCard },
+    { href: "/subpoena", label: "Subpoena", Icon: FileSignature },
+    { href: "/profile", label: "Profile", Icon: User },
+    { href: "/notification", label: "Notification", Icon: Bell },
+  ];
 
 export default function Sidebar({ active }: { active?: string }) {
   const pathname = usePathname();
@@ -63,10 +63,10 @@ export default function Sidebar({ active }: { active?: string }) {
       <div className="p-6 pb-2">
         <div className="flex items-center w-full min-h-[60px]">
           <Image
-            src="/logo.png"
+            src="/image 1 (1).png"
             alt="Logo"
-            width={400}
-            height={120}
+            width={100}
+            height={20}
             className="w-full h-auto object-contain"
             priority
           />
