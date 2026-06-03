@@ -1,0 +1,100 @@
+"use client";
+import React from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import {
+  LayoutDashboard,
+  Users,
+  Building2,
+  UserRound,
+  FileSpreadsheet,
+  BarChart3,
+  LogOut,
+  ChevronLeft,
+  LucideIcon,
+  Shield,
+  Scale,
+  HeartPulse,
+  FileText,
+  Activity,
+  History,
+  Star,
+  Map,
+  Gift,
+  CreditCard,
+  FileSignature,
+  User,
+  Bell
+} from "lucide-react";
+
+type IconType = LucideIcon;
+
+const items: Array<{
+  href: string;
+  label: string;
+  Icon: IconType;
+}> = [
+  { href: "/overview", label: "Overview", Icon: LayoutDashboard },
+  { href: "/citizen-management", label: "Citizen Management", Icon: Users },
+  { href: "/police-management", label: "Police Management", Icon: Shield },
+  { href: "/attorney-management", label: "Attorney Management", Icon: Scale },
+  { href: "/mhp-management", label: "MHP Management", Icon: HeartPulse },
+  { href: "/bonds-management", label: "Bonds Management", Icon: FileText },
+  { href: "/live-call-monitoring", label: "Live Call Monitoring", Icon: Activity },
+  { href: "/call-history", label: "Call History", Icon: History },
+  { href: "/hero-highlight", label: "Hero highlight", Icon: Star },
+  { href: "/risk-map", label: "Risk Map", Icon: Map },
+  { href: "/gift-code", label: "Gift Code", Icon: Gift },
+  { href: "/subscription", label: "Subscription", Icon: CreditCard },
+  { href: "/subpoena", label: "Subpoena", Icon: FileSignature },
+  { href: "/profile", label: "Profile", Icon: User },
+  { href: "/notification", label: "Notification", Icon: Bell },
+];
+
+export default function Sidebar({ active }: { active?: string }) {
+  const pathname = usePathname();
+  const current = active ?? pathname ?? "";
+  return (
+    <aside className="h-screen w-64 bg-white text-slate-600 border-r border-slate-200 fixed left-0 top-0 flex flex-col">
+      <div className="p-6 pb-2">
+        <div className="flex items-center w-full min-h-[60px]">
+          <Image
+            src="/logo.png"
+            alt="Logo"
+            width={400}
+            height={120}
+            className="w-full h-auto object-contain"
+            priority
+          />
+        </div>
+      </div>
+
+      <div className="flex-1 overflow-y-auto px-4 py-4 scrollbar-thin scrollbar-thumb-slate-200">
+        <nav className="space-y-1">
+          {items.map((item) => {
+            const isActive = current === item.href || current.startsWith(`${item.href}/`);
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={cn(
+                  "flex items-center gap-3 px-4 py-3 text-sm transition-colors rounded-lg",
+                  isActive
+                    ? "bg-[#1554ad] text-white font-medium"
+                    : "text-slate-500 hover:bg-slate-50 hover:text-slate-700"
+                )}
+              >
+                <item.Icon className={cn("h-5 w-5", isActive ? "text-white" : "text-slate-400")} />
+                <span>{item.label}</span>
+              </Link>
+            );
+          })}
+        </nav>
+      </div>
+    </aside>
+  );
+}
