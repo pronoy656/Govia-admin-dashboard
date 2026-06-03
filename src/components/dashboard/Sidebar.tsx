@@ -61,15 +61,16 @@ export default function Sidebar({ active }: { active?: string }) {
   return (
     <aside className="h-screen w-64 bg-white text-slate-600 border-r border-slate-200 fixed left-0 top-0 flex flex-col">
       <div className="p-6 pb-2">
-        <div className="flex items-center w-full min-h-[60px]">
+        <div className="flex items-center gap-3 w-full min-h-[60px]">
           <Image
             src="/image 1 (1).png"
             alt="Logo"
-            width={100}
-            height={20}
-            className="w-full h-auto object-contain"
+            width={40}
+            height={40}
+            className="w-auto h-8 object-contain"
             priority
           />
+
         </div>
       </div>
 

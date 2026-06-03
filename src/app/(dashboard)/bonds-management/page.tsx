@@ -1,5 +1,6 @@
 "use client";
 
+import { MoreHorizontal } from 'lucide-react';
 import React, { useState } from "react";
 import { DataTable, ColumnDef } from "@/components/tables/DataTable";
 import { Input } from "@/components/ui/input";
@@ -58,20 +59,16 @@ export default function BailBondsmanManagementPage() {
     {
       header: "Action",
       cell: () => (
-        <Button
-          variant="secondary"
-          size="sm"
-          className="bg-blue-100/50 text-[#1554ad] hover:bg-blue-100 border border-blue-200 font-medium"
-        >
-          View Agency
-        </Button>
+        <button className="p-2 text-slate-400 hover:text-[#1554ad] rounded-full hover:bg-slate-100 transition-colors">
+          <MoreHorizontal className="w-5 h-5" />
+        </button>
       ),
       className: "text-right",
     },
   ];
 
   return (
-    <div className="flex flex-col gap-8 max-w-7xl mx-auto">
+    <div className="flex flex-col gap-8">
       <div>
         <h1 className="text-3xl font-bold text-slate-800 tracking-tight">Bail Bondsman Management</h1>
         <p className="text-slate-500 mt-1">

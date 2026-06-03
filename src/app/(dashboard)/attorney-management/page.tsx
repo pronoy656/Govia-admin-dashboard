@@ -1,5 +1,6 @@
 "use client";
 
+import { MoreHorizontal } from 'lucide-react';
 import React, { useState } from "react";
 import { DataTable, ColumnDef } from "@/components/tables/DataTable";
 import { Input } from "@/components/ui/input";
@@ -57,11 +58,10 @@ export default function AttorneyManagementPage() {
       cell: (item) => (
         <Badge
           variant="secondary"
-          className={`font-normal shadow-none border-none ${
-            item.zoomSession === "Scheduled" ? "bg-blue-100 text-[#1554ad]" : 
-            item.zoomSession === "Completed" ? "bg-emerald-100 text-emerald-700" :
-            "bg-amber-100 text-amber-700"
-          }`}
+          className={`font-normal shadow-none border-none ${item.zoomSession === "Scheduled" ? "bg-blue-100 text-[#1554ad]" :
+              item.zoomSession === "Completed" ? "bg-emerald-100 text-emerald-700" :
+                "bg-amber-100 text-amber-700"
+            }`}
         >
           {item.zoomSession}
         </Badge>
@@ -70,20 +70,16 @@ export default function AttorneyManagementPage() {
     {
       header: "Action",
       cell: () => (
-        <Button
-          variant="secondary"
-          size="sm"
-          className="bg-blue-100/50 text-[#1554ad] hover:bg-blue-100 border border-blue-200 font-medium"
-        >
-          Manage Session
-        </Button>
+        <button className="p-2 text-slate-400 hover:text-[#1554ad] rounded-full hover:bg-slate-100 transition-colors">
+          <MoreHorizontal className="w-5 h-5" />
+        </button>
       ),
       className: "text-right",
     },
   ];
 
   return (
-    <div className="flex flex-col gap-8 max-w-7xl mx-auto">
+    <div className="flex flex-col gap-8">
       <div>
         <h1 className="text-3xl font-bold text-slate-800 tracking-tight">Attorney Management</h1>
         <p className="text-slate-500 mt-1">

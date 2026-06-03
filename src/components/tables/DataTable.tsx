@@ -84,11 +84,11 @@ export function DataTable<T>({ columns, data, pagination }: DataTableProps<T>) {
       </div>
 
       {pagination && (
-        <div className="flex items-center justify-between pt-2">
-          <p className="text-sm text-[#1554ad] font-medium">
+        <div className="grid grid-cols-3 items-center pt-4 pb-2">
+          <p className="text-sm text-[#1554ad] font-medium justify-self-start">
             Showing 1 To 5 Page
           </p>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center gap-2">
             <button
               onClick={() =>
                 pagination.onPageChange(Math.max(1, pagination.currentPage - 1))
@@ -129,6 +129,7 @@ export function DataTable<T>({ columns, data, pagination }: DataTableProps<T>) {
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
+          <div></div>
         </div>
       )}
     </div>
