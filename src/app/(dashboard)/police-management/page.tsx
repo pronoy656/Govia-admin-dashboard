@@ -12,8 +12,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Plus, User, Mail, Hash, Swords } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import FormDialog from "@/components/dialogs/FormDialog";
 
 type PoliceOfficer = {
   id: string;
@@ -50,8 +51,30 @@ const mockData: PoliceOfficer[] = [
   { id: "20", name: "Officer David Clark", email: "d.clark@police.dept", badgeNumber: "B-3341", encounters: "15", rating: "4.2/5.0" },
 ];
 
+const OFFICER_FIELDS = [
+  { key: "name",        label: "Officer Name",  type: "text"  as const, icon: <User className="w-4 h-4" /> },
+  { key: "email",       label: "Email",         type: "email" as const, icon: <Mail className="w-4 h-4" /> },
+  { key: "badgeNumber", label: "Badge Number",  type: "text"  as const, icon: <Hash className="w-4 h-4" />, placeholder: "e.g. B-1045" },
+  { key: "encounters",  label: "Encounters",    type: "text"  as const, icon: <Swords className="w-4 h-4" />, placeholder: "e.g. 42", required: false },
+];
+
 export default function PoliceManagementPage() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [officers, setOfficers] = useState<PoliceOfficer[]>(mockData);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleSave = (data: Record<string, string>) => {
+    const entry: PoliceOfficer = {
+      id: String(officers.length + 1),
+      name: data.name,
+      email: data.email,
+      badgeNumber: data.badgeNumber,
+      encounters: data.encounters || "0",
+      rating: "N/A",
+    };
+    setOfficers((p) => [entry, ...p]);
+    setCurrentPage(1);
+  };
 
   const columns: ColumnDef<PoliceOfficer>[] = [
     {
@@ -121,7 +144,7 @@ export default function PoliceManagementPage() {
                 <SelectItem value="inactive">Inactive</SelectItem>
               </SelectContent>
             </Select>
-            <Button className="bg-[#1554ad] hover:bg-[#10438a] text-white h-12 px-6 rounded-xl shadow-md shadow-[#1554ad]/20">
+            <Button onClick={() => setDialogOpen(true)} className="bg-[#1554ad] hover:bg-[#10438a] text-white h-12 px-6 rounded-xl shadow-md shadow-[#1554ad]/20">
               <Plus className="w-5 h-5 mr-2" />
               Add Officer
             </Button>
@@ -130,12 +153,22 @@ export default function PoliceManagementPage() {
 
         <DataTable
           columns={columns}
-          data={mockData.slice((currentPage - 1) * 10, currentPage * 10)}
+          data={officers.slice((currentPage - 1) * 10, currentPage * 10)}
           pagination={{
             currentPage,
-            totalPages: Math.ceil(mockData.length / 10),
+            totalPages: Math.ceil(officers.length / 10),
             onPageChange: setCurrentPage,
           }}
+        />
+
+        <FormDialog
+          open={dialogOpen}
+          onClose={() => setDialogOpen(false)}
+          onSave={handleSave}
+          title="Add New Officer"
+          description="Register a new officer into the police management system."
+          fields={OFFICER_FIELDS}
+          saveLabel="Save Officer"
         />
       </div>
     </div>

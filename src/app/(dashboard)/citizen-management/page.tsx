@@ -14,7 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import AddUserDialog, { UserFormData } from "@/components/ui/AddUserDialog";
+import AddUserDialog, { UserFormData } from "@/components/dialogs/AddUserDialog";
 
 type Citizen = {
   id: string;

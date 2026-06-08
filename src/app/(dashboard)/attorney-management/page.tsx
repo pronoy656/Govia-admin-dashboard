@@ -12,8 +12,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Plus, User, Mail, MapPin, BadgeCheck, Video } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import FormDialog from "@/components/dialogs/FormDialog";
 
 type Attorney = {
   id: string;
@@ -50,8 +51,31 @@ const mockData: Attorney[] = [
   { id: "20", name: "Attorney Tom Hardy", email: "thardy@lawfirm.com", location: "Miami, FL", barId: "FL-1122", zoomSession: "Scheduled" },
 ];
 
+const ATTORNEY_FIELDS = [
+  { key: "name",        label: "Name",         type: "text"   as const, icon: <User className="w-4 h-4" /> },
+  { key: "email",       label: "Email",        type: "email"  as const, icon: <Mail className="w-4 h-4" /> },
+  { key: "location",    label: "Location",     type: "text"   as const, icon: <MapPin className="w-4 h-4" />, placeholder: "e.g. New York, NY" },
+  { key: "barId",       label: "Bar ID",       type: "text"   as const, icon: <BadgeCheck className="w-4 h-4" />, placeholder: "e.g. NY-44021" },
+  { key: "zoomSession", label: "Zoom Session", type: "select" as const, icon: <Video className="w-4 h-4" />, options: ["Scheduled", "Completed", "Pending"] },
+];
+
 export default function AttorneyManagementPage() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [attorneys, setAttorneys] = useState<Attorney[]>(mockData);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleSave = (data: Record<string, string>) => {
+    const entry: Attorney = {
+      id: String(attorneys.length + 1),
+      name: data.name,
+      email: data.email,
+      location: data.location,
+      barId: data.barId,
+      zoomSession: (data.zoomSession as Attorney["zoomSession"]) || "Pending",
+    };
+    setAttorneys((p) => [entry, ...p]);
+    setCurrentPage(1);
+  };
 
   const columns: ColumnDef<Attorney>[] = [
     {
@@ -124,7 +148,7 @@ export default function AttorneyManagementPage() {
                 <SelectItem value="completed">Completed</SelectItem>
               </SelectContent>
             </Select>
-            <Button className="bg-[#1554ad] hover:bg-[#10438a] text-white h-12 px-6 rounded-xl shadow-md shadow-[#1554ad]/20">
+            <Button onClick={() => setDialogOpen(true)} className="bg-[#1554ad] hover:bg-[#10438a] text-white h-12 px-6 rounded-xl shadow-md shadow-[#1554ad]/20">
               <Plus className="w-5 h-5 mr-2" />
               Add Attorney
             </Button>
@@ -133,12 +157,22 @@ export default function AttorneyManagementPage() {
 
         <DataTable
           columns={columns}
-          data={mockData.slice((currentPage - 1) * 10, currentPage * 10)}
+          data={attorneys.slice((currentPage - 1) * 10, currentPage * 10)}
           pagination={{
             currentPage,
-            totalPages: Math.ceil(mockData.length / 10),
+            totalPages: Math.ceil(attorneys.length / 10),
             onPageChange: setCurrentPage,
           }}
+        />
+
+        <FormDialog
+          open={dialogOpen}
+          onClose={() => setDialogOpen(false)}
+          onSave={handleSave}
+          title="Add New Attorney"
+          description="Register a new attorney in the system."
+          fields={ATTORNEY_FIELDS}
+          saveLabel="Save Attorney"
         />
       </div>
     </div>

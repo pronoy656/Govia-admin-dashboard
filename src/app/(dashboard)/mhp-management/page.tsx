@@ -12,8 +12,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Plus, User, Mail, ShieldCheck, Activity } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import FormDialog from "@/components/dialogs/FormDialog";
 
 type MHP = {
   id: string;
@@ -49,8 +50,29 @@ const mockData: MHP[] = [
   { id: "20", name: "Dr. John Hammond", email: "j.hammond@mhp.org", hipaaId: "H-99100", liveStatus: "Inactive" },
 ];
 
+const MHP_FIELDS = [
+  { key: "name",       label: "Name",      type: "text"   as const, icon: <User className="w-4 h-4" /> },
+  { key: "email",      label: "Email",     type: "email"  as const, icon: <Mail className="w-4 h-4" /> },
+  { key: "hipaaId",    label: "HIPAA ID",  type: "text"   as const, icon: <ShieldCheck className="w-4 h-4" />, placeholder: "e.g. H-88219" },
+  { key: "liveStatus", label: "Status",    type: "select" as const, icon: <Activity className="w-4 h-4" />, options: ["Active", "Inactive"] },
+];
+
 export default function MHPManagementPage() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [mhps, setMhps] = useState<MHP[]>(mockData);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleSave = (data: Record<string, string>) => {
+    const entry: MHP = {
+      id: String(mhps.length + 1),
+      name: data.name,
+      email: data.email,
+      hipaaId: data.hipaaId,
+      liveStatus: (data.liveStatus as MHP["liveStatus"]) || "Inactive",
+    };
+    setMhps((p) => [entry, ...p]);
+    setCurrentPage(1);
+  };
 
   const columns: ColumnDef<MHP>[] = [
     {
@@ -117,7 +139,7 @@ export default function MHPManagementPage() {
                 <SelectItem value="inactive">Inactive</SelectItem>
               </SelectContent>
             </Select>
-            <Button className="bg-[#1554ad] hover:bg-[#10438a] text-white h-12 px-6 rounded-xl shadow-md shadow-[#1554ad]/20">
+            <Button onClick={() => setDialogOpen(true)} className="bg-[#1554ad] hover:bg-[#10438a] text-white h-12 px-6 rounded-xl shadow-md shadow-[#1554ad]/20">
               <Plus className="w-5 h-5 mr-2" />
               Add MHP
             </Button>
@@ -126,12 +148,22 @@ export default function MHPManagementPage() {
 
         <DataTable
           columns={columns}
-          data={mockData.slice((currentPage - 1) * 10, currentPage * 10)}
+          data={mhps.slice((currentPage - 1) * 10, currentPage * 10)}
           pagination={{
             currentPage,
-            totalPages: Math.ceil(mockData.length / 10),
+            totalPages: Math.ceil(mhps.length / 10),
             onPageChange: setCurrentPage,
           }}
+        />
+
+        <FormDialog
+          open={dialogOpen}
+          onClose={() => setDialogOpen(false)}
+          onSave={handleSave}
+          title="Add New MHP"
+          description="Register a new Mental Health Professional in the system."
+          fields={MHP_FIELDS}
+          saveLabel="Save MHP"
         />
       </div>
     </div>
