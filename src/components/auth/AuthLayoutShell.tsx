@@ -1,8 +1,6 @@
 "use client";
 import Image from "next/image";
-import Link from "next/link";
 import { PropsWithChildren } from "react";
-import { Card, CardContent } from "@/components/ui/card";
 
 type AuthLayoutShellProps = PropsWithChildren<{
   title?: string;
@@ -15,25 +13,25 @@ export default function AuthLayoutShell({
   return (
     <div className="min-h-screen grid md:grid-cols-2 bg-white text-black">
       {/* Left Side: Hero Image and Text */}
-      <div className="relative hidden md:flex flex-col justify-end p-12 overflow-hidden">
+      <div className="relative hidden md:flex flex-col justify-end p-12 overflow-hidden bg-[#002D54]">
         <Image
-          src="/auth-hero.png"
-          alt="Healthcare professionals collaborating"
+          src="/govia-hero.png"
+          alt="Government and civic administration dashboard"
           priority
           fill
           className="object-cover"
         />
         {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#002D54]/90 via-[#002D54]/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#001122]/95 via-[#001e40]/60 to-[#002D54]/30" />
 
         {/* Text Content over Image */}
         <div className="relative z-10 max-w-lg">
           <h1 className="text-4xl font-bold text-white mb-4 leading-tight">
-            Advancing Patient Care Through Precision Data
+            Empowering Administration Through Intelligent Data
           </h1>
           <p className="text-lg text-blue-50/80 leading-relaxed font-medium">
-            Join thousands of specialized healthcare professionals using 4sightRX
-            to streamline clinical decision-making and improve patient outcomes.
+            Join civic leaders and law enforcement professionals using Govia
+            to streamline operations, monitor incidents, and improve community safety.
           </p>
         </div>
       </div>
@@ -44,11 +42,11 @@ export default function AuthLayoutShell({
           {/* Logo Section */}
           <div className="mb-12">
             <Image
-              src="/logo2.png"
-              alt="4sightRX Logo"
-              width={240}
-              height={60}
-              className="object-contain"
+              src="/image 1 (1).png"
+              alt="Govia Logo"
+              width={160}
+              height={160}
+              className="object-contain w-auto h-32"
               priority
             />
           </div>

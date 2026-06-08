@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import AddUserDialog, { UserFormData } from "@/components/ui/AddUserDialog";
 
 type Citizen = {
   id: string;
@@ -64,6 +65,21 @@ const mockData: Citizen[] = [
 
 export default function CitizenManagementPage() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [citizens, setCitizens] = useState<Citizen[]>(mockData);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleSaveUser = (data: UserFormData) => {
+    const newCitizen: Citizen = {
+      id: String(citizens.length + 1),
+      name: data.name,
+      email: data.email,
+      subscription: "Basic Plan",
+      incidents: data.incident || "00",
+      status: (data.status as Citizen["status"]) || "Offline",
+    };
+    setCitizens((prev) => [newCitizen, ...prev]);
+    setCurrentPage(1);
+  };
 
   const columns: ColumnDef<Citizen>[] = [
     {
@@ -141,7 +157,10 @@ export default function CitizenManagementPage() {
                 <SelectItem value="offline">Offline</SelectItem>
               </SelectContent>
             </Select>
-            <Button className="bg-[#1554ad] hover:bg-[#10438a] text-white h-12 px-6 rounded-xl shadow-md shadow-[#1554ad]/20">
+            <Button
+              onClick={() => setDialogOpen(true)}
+              className="bg-[#1554ad] hover:bg-[#10438a] text-white h-12 px-6 rounded-xl shadow-md shadow-[#1554ad]/20"
+            >
               <Plus className="w-5 h-5 mr-2" />
               Add User
             </Button>
@@ -150,12 +169,20 @@ export default function CitizenManagementPage() {
 
         <DataTable
           columns={columns}
-          data={mockData.slice((currentPage - 1) * 10, currentPage * 10)}
+          data={citizens.slice((currentPage - 1) * 10, currentPage * 10)}
           pagination={{
             currentPage,
-            totalPages: Math.ceil(mockData.length / 10),
+            totalPages: Math.ceil(citizens.length / 10),
             onPageChange: setCurrentPage,
           }}
+        />
+
+        <AddUserDialog
+          open={dialogOpen}
+          onClose={() => setDialogOpen(false)}
+          onSave={handleSaveUser}
+          title="Add New Citizen"
+          description="Fill in the citizen's details to register them in the system."
         />
       </div>
     </div>
