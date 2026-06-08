@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Plus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import GenerateGiftCodeDialog, { GiftCodeFormData } from "@/components/dialogs/GenerateGiftCodeDialog";
 
 type GiftCode = {
   id: string;
@@ -51,6 +52,12 @@ const mockData: GiftCode[] = [
 
 export default function GiftCodeManagementPage() {
   const [currentPage, setCurrentPage] = useState(1);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+  const handleGenerateCode = (data: GiftCodeFormData) => {
+    console.log("Generating gift code with data:", data);
+    // In a real app, you would send this to your API
+  };
 
   const columns: ColumnDef<GiftCode>[] = [
     {
@@ -121,7 +128,10 @@ export default function GiftCodeManagementPage() {
                 <SelectItem value="redeemed">Redeemed</SelectItem>
               </SelectContent>
             </Select>
-            <Button className="bg-[#1554ad] hover:bg-[#10438a] text-white h-12 px-6 rounded-xl shadow-md shadow-[#1554ad]/20">
+            <Button 
+              onClick={() => setIsDialogOpen(true)}
+              className="bg-[#1554ad] hover:bg-[#10438a] text-white h-12 px-6 rounded-xl shadow-md shadow-[#1554ad]/20"
+            >
               <Plus className="w-5 h-5 mr-2" />
               Generate Code
             </Button>
@@ -138,6 +148,12 @@ export default function GiftCodeManagementPage() {
           }}
         />
       </div>
+
+      <GenerateGiftCodeDialog 
+        open={isDialogOpen} 
+        onClose={() => setIsDialogOpen(false)} 
+        onSave={handleGenerateCode} 
+      />
     </div>
   );
 }
