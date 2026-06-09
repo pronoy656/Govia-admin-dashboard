@@ -1,107 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import { TrendingUp, TrendingDown, Target, Plus, Minus } from "lucide-react";
+import { TrendingUp, TrendingDown, Target, Plus, Minus, MapPin, Search } from "lucide-react";
+import dynamic from "next/dynamic";
 
+// Dynamically import maps to avoid SSR issues
+const RiskRealMap = dynamic(() => import("@/components/maps/RiskRealMap"), { 
+  ssr: false,
+  loading: () => <div className="h-full w-full bg-slate-100 animate-pulse flex items-center justify-center">Loading Real Map...</div>
+});
 
-
-/* ───────────── SVG city-map ───────────── */
-function CityMapSVG({ layers }: { layers: Record<string, boolean> }) {
-  return (
-    <svg
-      viewBox="0 0 800 480"
-      className="w-full h-full"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {/* background */}
-      <rect width="800" height="480" fill="#3a3f4b" />
-
-      {/* ── radial road network (white, low opacity) ── */}
-      {Array.from({ length: 24 }).map((_, i) => {
-        const angle = (i * 15 * Math.PI) / 180;
-        const cx = 400; const cy = 240;
-        const ex = cx + Math.cos(angle) * 450;
-        const ey = cy + Math.sin(angle) * 450;
-        return (
-          <line key={i} x1={cx} y1={cy} x2={ex} y2={ey}
-            stroke="white" strokeOpacity={0.08} strokeWidth={i % 3 === 0 ? 1.5 : 0.7} />
-        );
-      })}
-      {/* concentric ring roads */}
-      {[60, 120, 190, 270, 360].map((r) => (
-        <circle key={r} cx={400} cy={240} r={r}
-          fill="none" stroke="white" strokeOpacity={0.07} strokeWidth={r > 200 ? 1.5 : 1} />
-      ))}
-      {/* grid streets */}
-      {Array.from({ length: 12 }).map((_, i) => (
-        <line key={`h${i}`} x1={0} y1={i * 44} x2={800} y2={i * 44}
-          stroke="white" strokeOpacity={0.04} strokeWidth={0.5} />
-      ))}
-      {Array.from({ length: 18 }).map((_, i) => (
-        <line key={`v${i}`} x1={i * 46} y1={0} x2={i * 46} y2={480}
-          stroke="white" strokeOpacity={0.04} strokeWidth={0.5} />
-      ))}
-
-      {/* ── Incident Heatmap layer ── */}
-      {layers["Incident Heatmap"] && (
-        <g>
-          <radialGradient id="hm1" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#ef4444" stopOpacity="0.55" />
-            <stop offset="100%" stopColor="#ef4444" stopOpacity="0" />
-          </radialGradient>
-          <radialGradient id="hm2" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#f97316" stopOpacity="0.45" />
-            <stop offset="100%" stopColor="#f97316" stopOpacity="0" />
-          </radialGradient>
-          <radialGradient id="hm3" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#ef4444" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#ef4444" stopOpacity="0" />
-          </radialGradient>
-          <ellipse cx={400} cy={240} rx={90} ry={70} fill="url(#hm1)" />
-          <ellipse cx={220} cy={140} rx={60} ry={50} fill="url(#hm2)" />
-          <ellipse cx={580} cy={330} rx={55} ry={45} fill="url(#hm3)" />
-        </g>
-      )}
-
-      {/* ── Crisis Zone rings ── */}
-      {layers["Crisis Zones"] && (
-        <g>
-          <circle cx={400} cy={240} r={50} fill="#1554ad" fillOpacity={0.18}
-            stroke="#3b82f6" strokeWidth={1.5} strokeOpacity={0.6} />
-          <circle cx={400} cy={240} r={30} fill="#1554ad" fillOpacity={0.22} />
-          <circle cx={580} cy={160} r={35} fill="#1554ad" fillOpacity={0.18}
-            stroke="#3b82f6" strokeWidth={1} strokeOpacity={0.5} />
-          <circle cx={210} cy={310} r={28} fill="#1554ad" fillOpacity={0.18}
-            stroke="#3b82f6" strokeWidth={1} strokeOpacity={0.5} />
-        </g>
-      )}
-
-      {/* ── Officer Deployment dots ── */}
-      {layers["Officer Deployment"] && (
-        <g>
-          {[
-            [400, 240], [320, 180], [500, 290], [250, 200],
-            [540, 175], [370, 310], [445, 155],
-          ].map(([x, y], i) => (
-            <g key={i}>
-              <circle cx={x} cy={y} r={8} fill="#14b8a6" fillOpacity={0.25}
-                stroke="#14b8a6" strokeWidth={1} />
-              <circle cx={x} cy={y} r={3.5} fill="#14b8a6" />
-            </g>
-          ))}
-        </g>
-      )}
-
-      {/* center glow */}
-      <radialGradient id="cg" cx="50%" cy="50%" r="50%">
-        <stop offset="0%" stopColor="#60a5fa" stopOpacity="0.06" />
-        <stop offset="100%" stopColor="#60a5fa" stopOpacity="0" />
-      </radialGradient>
-      <ellipse cx={400} cy={240} rx={200} ry={180} fill="url(#cg)" />
-    </svg>
-  );
-}
-
+const MapPickerDialog = dynamic(() => import("@/components/maps/MapPickerDialog"), { ssr: false });
 
 /* ───────────── main page ───────────── */
 export default function RiskMapPage() {
@@ -111,22 +20,47 @@ export default function RiskMapPage() {
     "Officer Deployment": false,
   });
 
+  const [riskArea, setRiskArea] = useState("");
+  const [coords, setCoords] = useState<{lat: number, lng: number} | null>(null);
+  const [isMapDialogOpen, setIsMapDialogOpen] = useState(false);
+
   const toggleLayer = (key: string) =>
     setLayers((prev) => ({ ...prev, [key]: !prev[key] }));
 
-
+  const handleLocationSave = (lat: number, lng: number) => {
+    setCoords({ lat, lng });
+    setRiskArea(`${lat.toFixed(4)}, ${lng.toFixed(4)}`);
+  };
 
   return (
     <div className="flex flex-col gap-6">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-slate-800 tracking-tight">Risk Map & Analytics</h1>
-        <p className="text-slate-500 mt-1">Real-time tactical oversight and predictive modeling.</p>
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <h1 className="text-3xl font-bold text-slate-800 tracking-tight">Risk Map & Analytics</h1>
+          <p className="text-slate-500 mt-1">Real-time tactical oversight and predictive modeling.</p>
+        </div>
+
+        {/* Risk Area Input */}
+        <div className="flex flex-col gap-1.5 w-full sm:w-72">
+          <label className="text-xs font-bold text-slate-500 uppercase tracking-wider">Risk Area Selection</label>
+          <div className="relative">
+            <input
+              type="text"
+              readOnly
+              value={riskArea}
+              onClick={() => setIsMapDialogOpen(true)}
+              placeholder="Click to select area..."
+              className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-[#1554ad]/20 focus:border-[#1554ad] cursor-pointer transition-all"
+            />
+            <MapPin className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          </div>
+        </div>
       </div>
 
       {/* Map */}
-      <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-sm bg-[#3a3f4b]" style={{ height: 440 }}>
-        <CityMapSVG layers={layers} />
+      <div className="relative rounded-2xl overflow-hidden border border-slate-200 shadow-sm bg-slate-100" style={{ height: 500 }}>
+        <RiskRealMap layers={layers} />
 
         {/* Layers Panel */}
         <div className="absolute top-4 left-4 bg-white rounded-xl shadow-lg p-4 flex flex-col gap-2 min-w-[180px]">
@@ -177,7 +111,12 @@ export default function RiskMapPage() {
         </div>
       </div>
 
-
+      <MapPickerDialog 
+        open={isMapDialogOpen} 
+        onClose={() => setIsMapDialogOpen(false)} 
+        onSave={handleLocationSave}
+        initialLocation={coords ? [coords.lat, coords.lng] : undefined}
+      />
     </div>
   );
 }
