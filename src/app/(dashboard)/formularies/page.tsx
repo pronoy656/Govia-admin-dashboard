@@ -1,8 +1,6 @@
 "use client";
 
 import React from "react";
-import { MedicationsTable } from "@/components/tables/MedicationsTable";
-import { InterchangesTable } from "@/components/tables/InterchangesTable";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function FormularyPage() {
@@ -15,24 +13,8 @@ export default function FormularyPage() {
                 </p>
             </div>
 
-            <div className="bg-white border border-slate-100 rounded-2xl shadow-sm">
-                <Tabs defaultValue="medications" className="w-full">
-                    <div className="px-6 pt-2">
-                        <TabsList>
-                            <TabsTrigger value="medications">Medications</TabsTrigger>
-                            <TabsTrigger value="interchanges">Therapeutic Interchanges</TabsTrigger>
-                        </TabsList>
-                    </div>
-
-                    <div className="p-6 pt-0">
-                        <TabsContent value="medications">
-                            <MedicationsTable />
-                        </TabsContent>
-                        <TabsContent value="interchanges">
-                            <InterchangesTable />
-                        </TabsContent>
-                    </div>
-                </Tabs>
+            <div className="bg-white border border-slate-100 rounded-2xl shadow-sm min-h-[400px] flex items-center justify-center">
+                <p className="text-slate-400 font-medium">Formulary data and tables are being updated.</p>
             </div>
         </div>
     );
