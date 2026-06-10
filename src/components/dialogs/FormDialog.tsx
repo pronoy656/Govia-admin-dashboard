@@ -3,6 +3,13 @@
 import React, { useState, useEffect } from "react";
 import { X, Save } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 // ─── Field Config ────────────────────────────────────────────────────────────
 
@@ -115,19 +122,22 @@ export default function FormDialog({
               </label>
 
               {field.type === "select" ? (
-                <select
+                <Select
                   value={form[field.key]}
-                  onChange={(e) => handleChange(field.key, e.target.value)}
-                  className={cn(
+                  onValueChange={(value) => handleChange(field.key, value)}
+                >
+                  <SelectTrigger className={cn(
                     "w-full px-4 py-2.5 rounded-xl border text-slate-800 text-sm bg-slate-50 focus:outline-none focus:ring-2 focus:ring-[#1554ad]/20 focus:border-[#1554ad] transition-all",
                     errors[field.key] ? "border-red-400 bg-red-50" : "border-slate-200"
-                  )}
-                >
-                  <option value="" disabled>Select {field.label.toLowerCase()}</option>
-                  {field.options?.map((opt) => (
-                    <option key={opt} value={opt}>{opt}</option>
-                  ))}
-                </select>
+                  )}>
+                    <SelectValue placeholder={`Select ${field.label.toLowerCase()}`} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {field.options?.map((opt) => (
+                      <SelectItem key={opt} value={opt}>{opt}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               ) : (
                 <input
                   type={field.type ?? "text"}

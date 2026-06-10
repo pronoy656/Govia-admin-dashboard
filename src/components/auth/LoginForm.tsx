@@ -63,7 +63,7 @@ export default function LoginForm() {
             <div className="h-4 w-4 rounded border border-slate-200 bg-slate-50 flex items-center justify-center cursor-pointer hover:border-blue-500 transition-colors">
               {/* Custom Checkbox */}
             </div>
-            <span className="text-sm text-slate-500">Remember Password</span>
+            <span className="text-sm text-slate-500">Remember me</span>
           </div>
           <Link href="/reset" className="text-sm text-slate-900 underline hover:text-blue-600 transition-colors">
             Forgot Password

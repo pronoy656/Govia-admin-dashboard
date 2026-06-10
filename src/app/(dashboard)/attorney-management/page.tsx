@@ -56,7 +56,7 @@ const ATTORNEY_FIELDS = [
   { key: "email",       label: "Email",        type: "email"  as const, icon: <Mail className="w-4 h-4" /> },
   { key: "location",    label: "Location",     type: "text"   as const, icon: <MapPin className="w-4 h-4" />, placeholder: "e.g. New York, NY" },
   { key: "barId",       label: "Bar ID",       type: "text"   as const, icon: <BadgeCheck className="w-4 h-4" />, placeholder: "e.g. NY-44021" },
-  { key: "zoomSession", label: "Zoom Session", type: "select" as const, icon: <Video className="w-4 h-4" />, options: ["Scheduled", "Completed", "Pending"] },
+  { key: "zoomSession", label: "Zoom Session", type: "text" as const, icon: <Video className="w-4 h-4" />, placeholder: "Type here" },
 ];
 
 export default function AttorneyManagementPage() {
