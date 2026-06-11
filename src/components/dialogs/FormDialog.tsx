@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import React, { useState, useEffect } from "react";
 import { X, Save } from "lucide-react";
@@ -97,12 +97,12 @@ export default function FormDialog({
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm"
       onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
     >
-      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md mx-4 overflow-hidden">
+      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md mx-3 sm:mx-4 overflow-hidden max-h-[90vh] overflow-y-auto">
         {/* ── Header ── */}
-        <div className="bg-gradient-to-r from-[#1554ad] to-[#1e6fd9] px-6 py-5 flex items-start justify-between">
-          <div>
-            <h2 className="text-white font-bold text-xl">{title}</h2>
-            <p className="text-blue-100 text-sm mt-1">{description}</p>
+        <div className="bg-gradient-to-r from-[#1554ad] to-[#1e6fd9] px-4 sm:px-6 py-4 sm:py-5 flex items-start justify-between">
+          <div className="flex-1 pr-3">
+            <h2 className="text-white font-bold text-lg sm:text-xl">{title}</h2>
+            <p className="text-blue-100 text-xs sm:text-sm mt-1">{description}</p>
           </div>
           <button
             onClick={onClose}
@@ -113,7 +113,7 @@ export default function FormDialog({
         </div>
 
         {/* ── Body ── */}
-        <form onSubmit={handleSubmit} className="p-6 flex flex-col gap-4">
+        <form onSubmit={handleSubmit} className="p-4 sm:p-6 flex flex-col gap-4">
           {fields.map((field) => (
             <div key={field.key} className="flex flex-col gap-1.5">
               <label className="text-sm font-semibold text-slate-700 flex items-center gap-2">
@@ -127,7 +127,7 @@ export default function FormDialog({
                   onValueChange={(value) => handleChange(field.key, value)}
                 >
                   <SelectTrigger className={cn(
-                    "w-full px-4 py-2.5 rounded-xl border text-slate-800 text-sm bg-slate-50 focus:outline-none focus:ring-2 focus:ring-[#1554ad]/20 focus:border-[#1554ad] transition-all",
+                    "w-full px-3 sm:px-4 py-2.5 rounded-xl border text-slate-800 text-sm bg-slate-50 focus:outline-none focus:ring-2 focus:ring-[#1554ad]/20 focus:border-[#1554ad] transition-all",
                     errors[field.key] ? "border-red-400 bg-red-50" : "border-slate-200"
                   )}>
                     <SelectValue placeholder={`Select ${field.label.toLowerCase()}`} />
@@ -145,7 +145,7 @@ export default function FormDialog({
                   onChange={(e) => handleChange(field.key, e.target.value)}
                   placeholder={field.placeholder ?? `Enter ${field.label.toLowerCase()}`}
                   className={cn(
-                    "w-full px-4 py-2.5 rounded-xl border text-slate-800 text-sm bg-slate-50 focus:outline-none focus:ring-2 focus:ring-[#1554ad]/20 focus:border-[#1554ad] transition-all placeholder:text-slate-400",
+                    "w-full px-3 sm:px-4 py-2.5 rounded-xl border text-slate-800 text-sm bg-slate-50 focus:outline-none focus:ring-2 focus:ring-[#1554ad]/20 focus:border-[#1554ad] transition-all placeholder:text-slate-400",
                     errors[field.key] ? "border-red-400 bg-red-50" : "border-slate-200"
                   )}
                 />
@@ -158,17 +158,17 @@ export default function FormDialog({
           ))}
 
           {/* ── Actions ── */}
-          <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-100 mt-1">
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-3 border-t border-slate-100 mt-1">
             <button
               type="button"
               onClick={onClose}
-              className="px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm font-medium hover:bg-slate-50 transition-colors"
+              className="px-4 sm:px-5 py-2.5 rounded-xl border border-slate-200 text-slate-600 text-sm font-medium hover:bg-slate-50 transition-colors w-full sm:w-auto"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#1554ad] hover:bg-[#11438a] text-white text-sm font-semibold transition-colors shadow-md shadow-[#1554ad]/20"
+              className="flex items-center justify-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl bg-[#1554ad] hover:bg-[#11438a] text-white text-sm font-semibold transition-colors shadow-md shadow-[#1554ad]/20 w-full sm:w-auto"
             >
               <Save className="w-4 h-4" />
               {saveLabel}

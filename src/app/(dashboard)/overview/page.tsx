@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Users, AlertTriangle } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
@@ -13,18 +13,18 @@ import {
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const mockChartData = [
-  { month: "January", users: 850 },
-  { month: "February", users: 800 },
-  { month: "March", users: 750 },
-  { month: "April", users: 820 },
-  { month: "May", users: 890 },
-  { month: "June", users: 850 },
-  { month: "July", users: 1000 },
-  { month: "August", users: 1200 },
-  { month: "September", users: 820 },
-  { month: "October", users: 950 },
-  { month: "November", users: 850 },
-  { month: "December", users: 600 },
+  { month: "January", monthShort: "Jan", users: 850 },
+  { month: "February", monthShort: "Feb", users: 800 },
+  { month: "March", monthShort: "Mar", users: 750 },
+  { month: "April", monthShort: "Apr", users: 820 },
+  { month: "May", monthShort: "May", users: 890 },
+  { month: "June", monthShort: "Jun", users: 850 },
+  { month: "July", monthShort: "Jul", users: 1000 },
+  { month: "August", monthShort: "Aug", users: 1200 },
+  { month: "September", monthShort: "Sep", users: 820 },
+  { month: "October", monthShort: "Oct", users: 950 },
+  { month: "November", monthShort: "Nov", users: 850 },
+  { month: "December", monthShort: "Dec", users: 600 },
 ];
 
 const chartConfig = {
@@ -45,7 +45,7 @@ const statCards = [
     changeBg: "bg-emerald-100/50 text-emerald-600",
   },
   {
-    title: "Total Attorney",
+    title: "Total Attorneys",
     value: "12",
     change: "+8%",
     isPositive: true,
@@ -74,9 +74,18 @@ const statCards = [
 ];
 
 export default function OverviewPage() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
-    <div className="flex flex-col gap-6 max-w-[1400px] mx-auto p-2">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="flex flex-col gap-6 p-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {statCards.map((card, idx) => (
           <Card key={idx} className="border-none shadow-sm bg-white rounded-2xl p-6">
             <CardContent className="p-0 flex flex-col gap-4">
@@ -97,11 +106,11 @@ export default function OverviewPage() {
         ))}
       </div>
 
-      <Card className="border-none shadow-sm bg-white rounded-2xl p-6 overflow-hidden">
-        <div className="flex justify-between items-center mb-8">
+      <Card className="border-none shadow-sm bg-white rounded-2xl p-4 md:p-6 overflow-hidden">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
           <h2 className="text-xl font-bold text-slate-800">User Growth Analytics</h2>
           <Select defaultValue="2026">
-            <SelectTrigger className="w-[100px] bg-white border-slate-200 text-slate-600 rounded-xl h-10 shadow-sm focus:ring-0">
+            <SelectTrigger className="w-[160px] bg-white border-slate-200 text-slate-600 rounded-xl h-10 shadow-sm focus:ring-0">
               <SelectValue placeholder="Year" />
             </SelectTrigger>
             <SelectContent>
@@ -111,49 +120,52 @@ export default function OverviewPage() {
           </Select>
         </div>
 
-        <div className="h-[400px] w-full">
-          <ChartContainer config={chartConfig} className="h-[100%] w-full">
-            <AreaChart
-              data={mockChartData}
-              margin={{ top: 20, right: 0, left: -20, bottom: 0 }}
-            >
-              <defs>
-                <linearGradient id="colorUsers" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="var(--color-users)" stopOpacity={0.3} />
-                  <stop offset="95%" stopColor="var(--color-users)" stopOpacity={0} />
-                </linearGradient>
-              </defs>
-              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-              <XAxis
-                dataKey="month"
-                axisLine={false}
-                tickLine={false}
-                tickFormatter={(val) => val}
-                className="text-xs text-slate-400"
-                dy={10}
-              />
-              <YAxis
-                axisLine={false}
-                tickLine={false}
-                tick={{ fill: "#94a3b8", fontSize: 12 }}
-                tickFormatter={(value) => `${(value / 1200 * 100).toFixed(0)}%`}
-                dx={-10}
-              />
-              <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent className="bg-[#3f80ba] text-white border-none shadow-lg text-lg px-4 py-2 rounded-xl" />}
-              />
-              <Area
-                type="monotone"
-                dataKey="users"
-                stroke="var(--color-users)"
-                strokeWidth={3}
-                fillOpacity={1}
-                fill="url(#colorUsers)"
-                activeDot={{ r: 6, fill: "white", stroke: "var(--color-users)", strokeWidth: 3 }}
-              />
-            </AreaChart>
-          </ChartContainer>
+        <div className="w-full overflow-x-auto rounded-xl">
+          <div className="min-w-[600px] h-[300px] sm:h-[400px]">
+            <ChartContainer config={chartConfig} className="h-full w-full">
+              <AreaChart
+                data={mockChartData}
+                margin={{ top: 20, right: 10, left: 0, bottom: 10 }}
+              >
+                <defs>
+                  <linearGradient id="colorUsers" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="var(--color-users)" stopOpacity={0.3} />
+                    <stop offset="95%" stopColor="var(--color-users)" stopOpacity={0} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                <XAxis
+                  dataKey={isMobile ? "monthShort" : "month"}
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fontSize: isMobile ? 10 : 12 }}
+                  interval={isMobile ? 1 : 0}
+                  className="text-slate-400"
+                  dy={10}
+                />
+                <YAxis
+                  axisLine={false}
+                  tickLine={false}
+                  tick={{ fill: "#94a3b8", fontSize: isMobile ? 10 : 12 }}
+                  tickFormatter={(value) => `${(value / 1200 * 100).toFixed(0)}%`}
+                  dx={-5}
+                />
+                <ChartTooltip
+                  cursor={false}
+                  content={<ChartTooltipContent className="bg-[#3f80ba] text-white border-none shadow-lg text-lg px-4 py-2 rounded-xl" />}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="users"
+                  stroke="var(--color-users)"
+                  strokeWidth={3}
+                  fillOpacity={1}
+                  fill="url(#colorUsers)"
+                  activeDot={{ r: 6, fill: "white", stroke: "var(--color-users)", strokeWidth: 3 }}
+                />
+              </AreaChart>
+            </ChartContainer>
+          </div>
         </div>
       </Card>
     </div>

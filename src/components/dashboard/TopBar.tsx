@@ -1,6 +1,6 @@
 "use client";
 import { Input } from "@/components/ui/input";
-import { Bell, LogOut, ChevronDown } from "lucide-react";
+import { Bell, LogOut, ChevronDown, Menu } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -10,18 +10,30 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-export default function TopBar() {
+interface TopBarProps {
+  onMenuToggle?: () => void;
+}
+
+export default function TopBar({ onMenuToggle }: TopBarProps) {
   return (
-    <div className="flex items-center justify-between px-8 py-4 border-b border-slate-100 bg-white sticky top-0 z-10 h-16">
-      <div className="text-slate-400 text-sm font-medium">
-        Govia Admin Portal
+    <div className="flex items-center justify-between px-4 md:px-8 py-4 border-b border-slate-100 bg-white sticky top-0 z-10 h-16">
+      <div className="flex items-center gap-4">
+        <button
+          onClick={onMenuToggle}
+          className="lg:hidden p-2 hover:bg-slate-100 rounded-lg transition-colors"
+        >
+          <Menu className="h-6 w-6 text-slate-600" />
+        </button>
+        <div className="text-slate-400 text-sm font-medium">
+          Govia Admin Portal
+        </div>
       </div>
 
       <div className="flex items-center gap-4">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button className="flex items-center gap-3 text-right hover:bg-slate-50 p-1.5 rounded-lg transition-colors outline-none cursor-pointer">
-              <div>
+              <div className="hidden sm:block">
                 <div className="text-sm font-semibold text-slate-700">Super Admin</div>
                 <div className="text-[10px] text-slate-400">admin@4sightrx.com</div>
               </div>

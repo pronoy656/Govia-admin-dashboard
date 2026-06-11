@@ -30,6 +30,11 @@ import {
   User,
   Bell
 } from "lucide-react";
+import {
+  Sheet,
+  SheetContent,
+  SheetClose,
+} from "@/components/ui/sheet";
 
 type IconType = LucideIcon;
 
@@ -55,11 +60,18 @@ const items: Array<{
     { href: "/notification", label: "Notification", Icon: Bell },
   ];
 
-export default function Sidebar({ active }: { active?: string }) {
+interface SidebarProps {
+  active?: string;
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
+export default function Sidebar({ active, isOpen, onClose }: SidebarProps) {
   const pathname = usePathname();
   const current = active ?? pathname ?? "";
-  return (
-    <aside className="h-screen w-64 bg-white text-slate-600 border-r border-slate-200 fixed left-0 top-0 flex flex-col">
+
+  const SidebarContent = () => (
+    <div className="h-full bg-white text-slate-600 flex flex-col">
       <div className="p-6 pb-2">
         <div className="flex items-center justify-center w-full min-h-[60px]">
           <Image
@@ -81,6 +93,7 @@ export default function Sidebar({ active }: { active?: string }) {
               <Link
                 key={item.href}
                 href={item.href}
+                onClick={onClose}
                 className={cn(
                   "flex items-center gap-3 px-4 py-3 text-sm transition-colors rounded-lg",
                   isActive
@@ -95,6 +108,26 @@ export default function Sidebar({ active }: { active?: string }) {
           })}
         </nav>
       </div>
-    </aside>
+    </div>
+  );
+
+  return (
+    <>
+      <aside className="hidden lg:flex h-screen w-64 bg-white text-slate-600 border-r border-slate-200 fixed left-0 top-0 flex flex-col">
+        <SidebarContent />
+      </aside>
+
+      <Sheet open={isOpen} onOpenChange={(open) => !open && onClose?.()}>
+        <SheetContent side="left" className="p-0 w-64" showCloseButton={false}>
+          <div className="absolute top-4 right-4">
+            <SheetClose className="rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
+              <ChevronLeft className="h-6 w-6" />
+              <span className="sr-only">Close</span>
+            </SheetClose>
+          </div>
+          <SidebarContent />
+        </SheetContent>
+      </Sheet>
+    </>
   );
 }
